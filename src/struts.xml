@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+  <constant name="struts.i18n.encoding" value="UTF-8"></constant>
+  <constant name="struts.objectFactory" value="spring"/>
+  <package name="basicstruts" extends="struts-default">
+       <!-- 配置拦截器 -->
+       <interceptors>   
+            <interceptor name="authorityInterceptor" class="com.gyb.shop.interceptor.AuthInterceptor"></interceptor>   
+            <interceptor name="CategoryNamesBelowSearchInterceptor" class="com.gyb.shop.interceptor.CategoryNamesBelowSearchInterceptor"></interceptor>
+            <interceptor name="CartTotalItemNumberInterceptor" class="com.gyb.shop.interceptor.CartTotalItemNumberInterceptor"></interceptor>
+            <!-- 拦截器栈 -->   
+            <interceptor-stack name="auth-default">   
+                <interceptor-ref name="CategoryNamesBelowSearchInterceptor" /> 
+                <interceptor-ref name="authorityInterceptor"></interceptor-ref>  
+                <interceptor-ref name="CartTotalItemNumberInterceptor"></interceptor-ref>
+                <interceptor-ref name="defaultStack" />   
+            </interceptor-stack>   
+        </interceptors>  
+        <default-interceptor-ref name="auth-default"></default-interceptor-ref> 
+ </package>
+ </struts>
